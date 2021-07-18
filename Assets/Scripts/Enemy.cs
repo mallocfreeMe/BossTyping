@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     private Vector3 _pos;
     private string[] _namesPool =
-        {"Eric", "Pan", "Yang"};
+        {"Saint", "George", "Galahad", "Siegfried", "Robert"};
 
     private void Start()
     {

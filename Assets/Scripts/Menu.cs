@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,8 +12,16 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        _startButton = GetComponent<Button>();
-        _startButton.onClick.AddListener(Play);
+        if (GetComponent<Button>())
+        {
+            _startButton = GetComponent<Button>();
+            _startButton.onClick.AddListener(Play);
+        }
+
+        if (GetComponent<TextMeshProUGUI>())
+        {
+            GetComponent<TextMeshProUGUI>().text = "Your Final Points: " + PlayerPrefs.GetInt("Points");
+        }
     }
 
     private static void Play()

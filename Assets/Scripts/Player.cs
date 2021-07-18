@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public Enemy enemyPrefab;
     public TextMeshProUGUI pointUI;
     public Slider healthBar;
+    public TextMeshProUGUI countDownUI;
+
+    private float _countDownTimer = 3;
+    private bool _gameIsStart;
 
     private List<Enemy> _enemies;
     private const int EnemyLength = 10;
@@ -41,44 +45,58 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _enemies[_enemiesIndex].gameObject.SetActive(true);
+        GameCountDown();
 
-        if (_userInput == _enemies[_enemiesIndex].nameField.text)
+        if (_gameIsStart)
         {
-            CleanSteps();
+            _enemies[_enemiesIndex].gameObject.SetActive(true);
 
-            // add points
-            _scores++;
-            pointUI.text = "Points: " + _scores;
-        }
-
-        // add difficulties
-        if (_scores > _difficulties * 5)
-        {
-            _difficulties++;
-            foreach (var e in _enemies)
+            if (_userInput == _enemies[_enemiesIndex].nameField.text)
             {
-                e.nameField.text += "a";
-                e.movingSpeed += 1;
+                CleanSteps();
+                // add points
+                _scores++;
+                pointUI.text = "Points: " + _scores;
+            }
+
+            // add difficulties
+            if (_scores > _difficulties * 5)
+            {
+                _difficulties++;
+                foreach (var e in _enemies)
+                {
+                    e.nameField.text += "a";
+                    e.movingSpeed += 1;
+                }
             }
         }
     }
 
+    // detect which keys the player presses 
     private void OnGUI()
     {
-        var e = Event.current;
-        var enemyName = _enemies[_enemiesIndex].nameField.text;
-
-        if (e.isKey && e.keyCode != KeyCode.None)
+        if (_gameIsStart)
         {
-            if (enemyName.ToLower()[_pointer] == e.keyCode.ToString().ToLower()[0])
+            var e = Event.current;
+            var enemyName = _enemies[_enemiesIndex].nameField.text;
+
+            if (e.isKey && e.keyCode != KeyCode.None)
             {
-                _userInput += enemyName[_pointer];
-                _pointer++;
+                if (_pointer > enemyName.Length)
+                {
+                    _pointer = enemyName.Length;
+                }
+
+                if (enemyName.ToLower()[_pointer] == e.keyCode.ToString().ToLower()[0])
+                {
+                    _userInput += enemyName[_pointer];
+                    _pointer++;
+                }
             }
         }
     }
 
+    // enemies collide with the player 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -88,11 +106,39 @@ public class Player : MonoBehaviour
             healthBar.value--;
             if (_healthPoint == 0)
             {
+                PlayerPrefs.SetInt("Points", _scores);
                 SceneManager.LoadScene("Game Over");
             }
         }
     }
 
+    // Set Count Down Timer
+    // Hide the UI Component
+    private void GameCountDown()
+    {
+        if (!_gameIsStart)
+        {
+            if (countDownUI.text != "Go!")
+            {
+                countDownUI.text = "" + Math.Round(_countDownTimer);
+            }
+            _countDownTimer -= Time.deltaTime;
+            
+            if (_countDownTimer <= 1)
+            {
+                countDownUI.text = "Go!";
+            }
+
+            if (_countDownTimer <= 0)
+            {
+                countDownUI.gameObject.SetActive(false);
+                _gameIsStart = true;
+            }
+        }
+    }
+
+    // hide enemies, adjust pos
+    // clean the index
     private void CleanSteps()
     {
         _enemies[_enemiesIndex].transform.position = spawnPoint.position;
