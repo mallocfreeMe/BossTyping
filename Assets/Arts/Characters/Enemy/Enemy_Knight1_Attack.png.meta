@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 06d63fdbf1aeba441a9036379537d1bc
+guid: eb2007fb284511247ae5f9b063ef5a3f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7566070320169210394
-    second: Enemy_Knight1_Idle_0
+      213: 1692845825640367032
+    second: Enemy_Knight1_Attack_0
+  - first:
+      213: 563797680336066591
+    second: Enemy_Knight1_Attack_1
+  - first:
+      213: -835429751467715923
+    second: Enemy_Knight1_Attack_2
+  - first:
+      213: 9033414203570856849
+    second: Enemy_Knight1_Attack_3
+  - first:
+      213: 8662547402423152906
+    second: Enemy_Knight1_Attack_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -70,7 +82,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -82,7 +94,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -94,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_Knight1_Idle_0
+      name: Enemy_Knight1_Attack_0
       rect:
         serializedVersion: 2
-        x: 50
-        y: 35
-        width: 34
-        height: 57
+        x: 0
+        y: 0
+        width: 126
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -108,8 +120,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a12df439ed4100960800000000000000
-      internalID: 7566070320169210394
+      spriteID: 8b30cc03f423e7710800000000000000
+      internalID: 1692845825640367032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Knight1_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f18de9dc00303d700800000000000000
+      internalID: 563797680336066591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Knight1_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da259fc3115f764f0800000000000000
+      internalID: -835429751467715923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Knight1_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1932fc86b522d5d70800000000000000
+      internalID: 9033414203570856849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Knight1_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a013a6367fc873870800000000000000
+      internalID: 8662547402423152906
       vertices: []
       indices: 
       edges: []

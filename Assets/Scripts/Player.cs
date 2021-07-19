@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
     private const int MaxHealth = 3;
     private int _healthPoint = MaxHealth;
 
+    private Animator _playerAnimator;
     private void Start()
     {
+        _playerAnimator = GetComponent<Animator>();
         _enemies = new List<Enemy>();
         for (var i = 0; i < EnemyLength; i++)
         {
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
             {
                 CleanSteps();
                 // add points
+                _playerAnimator.SetTrigger("IsAttacking");
                 _scores++;
                 pointUI.text = "Points: " + _scores;
             }
@@ -102,11 +105,13 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             CleanSteps();
+            _playerAnimator.SetTrigger("IsHurted");
             _healthPoint--;
             healthBar.value--;
             if (_healthPoint == 0)
             {
                 PlayerPrefs.SetInt("Points", _scores);
+                _playerAnimator.SetTrigger("IsDying");
                 SceneManager.LoadScene("Game Over");
             }
         }
