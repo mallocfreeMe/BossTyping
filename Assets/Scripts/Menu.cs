@@ -20,7 +20,8 @@ public class Menu : MonoBehaviour
 
         if (GetComponent<TextMeshProUGUI>())
         {
-            GetComponent<TextMeshProUGUI>().text = "Your Final Points: " + PlayerPrefs.GetInt("Points");
+            GetComponent<TextMeshProUGUI>().text = "Your Best Points: " + PlayerPrefs.GetInt("Best") + "\n" +
+                                                   "Your Final Points: " + PlayerPrefs.GetInt("Points");
         }
     }
 
