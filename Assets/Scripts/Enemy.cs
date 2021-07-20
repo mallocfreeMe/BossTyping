@@ -9,8 +9,12 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     private Vector3 _pos;
+
     private string[] _namesPool =
-        {"Saint", "George", "Galahad", "Siegfried", "Robert"};
+    {
+        "Saint", "George", "Galahad", "Siegfried", "Robert", "Liam", "Noah", "Oliver", "Elijah", "Alexander", "Henry",
+        "Lucas", "Benjamin"
+    };
 
     private void Start()
     {

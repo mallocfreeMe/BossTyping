@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,13 +21,13 @@ public class Player : MonoBehaviour
     private List<Enemy> _enemies;
     private const int EnemyLength = 10;
     private int _enemiesIndex;
-    private string _userInput;
+    private string _userInput = "";
 
     private int _pointer;
     private int _scores;
     private int _difficulties = 1;
 
-    private const int MaxHealth = 3;
+    private const int MaxHealth = 6;
     private int _healthPoint = MaxHealth;
 
     private bool _offScreen = true;
@@ -34,8 +35,7 @@ public class Player : MonoBehaviour
     private Animator _playerAnimator;
     private bool _isDying;
     private float _deathAnimationTimer = 2;
-    // private bool _enemyIsDying;
-    // private float _enemyDeathAnimationTimer = 2;
+    private bool _isCollide;
 
     // some pre works 
     private void Start()
@@ -98,8 +98,8 @@ public class Player : MonoBehaviour
 
             if (_userInput == _enemies[_enemiesIndex].nameField.text)
             {
-                CleanSteps();
                 _playerAnimator.SetTrigger("IsAttacking");
+                CleanSteps();
 
                 // add points
                 _scores++;
@@ -107,32 +107,42 @@ public class Player : MonoBehaviour
             }
 
             // add difficulties
-            if (_scores > _difficulties * 5)
+            if (_scores > _difficulties * 10)
             {
                 _difficulties++;
                 foreach (var e in _enemies)
                 {
-                    e.nameField.text += "a";
-                    e.movingSpeed += 1;
+                    var c = (char) ('a' + UnityEngine.Random.Range(0, 26));
+                    e.nameField.text += c;
+                    // e.movingSpeed += 1;
                 }
             }
         }
+    }
+
+    private IEnumerator PlayDeathAnimation()
+    {
+        var temp = Instantiate(enemyPrefab,
+            new Vector2(_enemies[_enemiesIndex].transform.position.x, spawnPoint.position.y),
+            Quaternion.identity);
+        temp.animator.SetTrigger("EnemyIsDying");
+        temp.movingSpeed = 0;
+        temp.nameField.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        Destroy(temp);
     }
 
     // hide enemies, adjust pos
     // clean the index
     private void CleanSteps()
     {
-        // _enemies[_enemiesIndex].nameField.gameObject.SetActive(false);
-        // _enemies[_enemiesIndex].selectedName.text = "";
-        // _enemies[_enemiesIndex].animator.SetTrigger("EnemyIsDying");
-        // var temp = _enemies[_enemiesIndex].movingSpeed;
-        // _enemies[_enemiesIndex].movingSpeed = 0;
-        // _enemies[_enemiesIndex].nameField.gameObject.SetActive(true);
-        // _enemies[_enemiesIndex].movingSpeed = temp;
-        // _enemyDeathAnimationTimer = 2;
-        
+        if (!_isCollide)
+        {
+            StartCoroutine(PlayDeathAnimation());
+        }
+
         _offScreen = true;
+        _enemies[_enemiesIndex].selectedName.text = "";
         _enemies[_enemiesIndex].transform.position = spawnPoint.position;
         _enemies[_enemiesIndex].gameObject.SetActive(false);
 
@@ -173,7 +183,8 @@ public class Player : MonoBehaviour
                     _pointer = enemyName.Length - 1;
                 }
 
-                if (enemyName.ToLower()[_pointer] == e.keyCode.ToString().ToLower()[0])
+                if (enemyName.ToLower()[_pointer] == e.keyCode.ToString().ToLower()[0] &&
+                    _userInput.Length <= enemyName.Length)
                 {
                     _userInput += enemyName[_pointer];
                     _enemies[_enemiesIndex].selectedName.text = _userInput;
@@ -206,10 +217,12 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            _isCollide = true;
             CleanSteps();
             _playerAnimator.SetTrigger("IsHurted");
             _healthPoint--;
             healthBar.value--;
+            _isCollide = false;
             if (_healthPoint == 0)
             {
                 PlayerPrefs.SetInt("Points", _scores);
