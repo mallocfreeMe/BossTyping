@@ -1,0 +1,16 @@
+Credits
+
+=====BGM====
+By ArcOfDream at https://arcofdream.itch.io/monolith-ost 
+- Game BGM: "Before the Dawn" 
+- Menu BGM: "Accursed One"
+
+=====SFX====
+By harvey656 at https://harvey656.itch.io/8-bit-game-sound-effects-collection
+- Player attacking: "Explosion" & "PP_23"
+
+By Michel88 at https://freesound.org/people/Michel88/sounds/76962/
+- Player hurt: "deaths"
+
+By starkvind at https://freesound.org/people/starkvind/sounds/559975/
+- NPC dying: "man-dies"
