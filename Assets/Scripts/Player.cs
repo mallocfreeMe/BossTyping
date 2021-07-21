@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
                 {
                     var c = (char) ('a' + UnityEngine.Random.Range(0, 26));
                     e.nameField.text += c;
-                    // e.movingSpeed += 1;
+                    e.movingSpeed += 1;
                 }
             }
         }
