@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     private bool _isCollide;
 
     public AudioClip attack1, attack2, hurt, enemyDeath;
-    AudioSource audioSource;
+    private AudioSource _audioSource;
 
 
     // some pre works 
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
         _playerAnimator = GetComponent<Animator>();
 
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // main game loop
@@ -105,9 +105,9 @@ public class Player : MonoBehaviour
             if (_userInput == _enemies[_enemiesIndex].nameField.text)
             {
                 _playerAnimator.SetTrigger("IsAttacking");
-                audioSource.PlayOneShot(attack1, 1F);
-                audioSource.PlayOneShot(attack2, 1F);
-                audioSource.PlayOneShot(enemyDeath, 1F);
+                _audioSource.PlayOneShot(attack1, 1F);
+                _audioSource.PlayOneShot(attack2, 1F);
+                _audioSource.PlayOneShot(enemyDeath, 1F);
                 
                 CleanSteps();
 
@@ -230,7 +230,7 @@ public class Player : MonoBehaviour
             _isCollide = true;
             CleanSteps();
             _playerAnimator.SetTrigger("IsHurted");
-            audioSource.PlayOneShot(hurt, 1F);
+            _audioSource.PlayOneShot(hurt, 1F);
             _healthPoint--;
             healthBar.value--;
             _isCollide = false;

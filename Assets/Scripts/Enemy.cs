@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public TextMeshPro selectedName;
     public Animator animator;
 
-    private Vector3 _pos;
+    // private Vector3 _pos;
 
     private string[] _namesPool =
     {
@@ -18,13 +18,11 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _pos = transform.position;
         nameField.text = _namesPool[Random.Range(0, _namesPool.Length)];
     }
 
     private void Update()
     {
-        _pos += new Vector3(-movingSpeed, 0, 0) * Time.deltaTime;
-        transform.position = _pos;
+        transform.position += new Vector3(-movingSpeed, 0, 0) * Time.deltaTime;
     }
 }
