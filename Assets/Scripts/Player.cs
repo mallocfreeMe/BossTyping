@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         temp.movingSpeed = 0;
         temp.nameField.gameObject.SetActive(false);
         yield return new WaitForSeconds(1);
-        Destroy(temp);
+        Destroy(temp.gameObject);
     }
 
     // hide enemies, adjust pos
