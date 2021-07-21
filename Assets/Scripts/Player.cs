@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
                 }
 
                 if (enemyName.ToLower()[_pointer] == e.keyCode.ToString().ToLower()[0] &&
-                    _userInput.Length <= enemyName.Length)
+                    _userInput.Length < enemyName.Length)
                 {
                     _userInput += enemyName[_pointer];
                     _enemies[_enemiesIndex].selectedName.text = _userInput;
